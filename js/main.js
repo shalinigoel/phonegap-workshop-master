@@ -12,12 +12,12 @@ var app = {
 //            }
 //        });
 //    },
-    findByName: function () {
-        var self = this;
-        this.store.findByName($('.search-key').val(), function (employees) {
-            $('.employee-list').html(self.employeeLiTpl(employees));
-        });
-    },
+//    findByName: function () {
+//        var self = this;
+//        this.store.findByName($('.search-key').val(), function (employees) {
+//            $('.employee-list').html(self.employeeLiTpl(employees));
+//        });
+//    },
 
     showAlert: function (message, title) {
         if (navigator.notification) {
@@ -26,11 +26,11 @@ var app = {
             alert(title ? (title + ": " + message) : message);
         }
     },
-    renderHomeView: function () {
-       
-        $('body').html(this.homeTpl());
-        $('.search-key').on('keyup', $.proxy(this.findByName, this));
-    },
+//    renderHomeView: function () {
+//       
+//        $('body').html(this.homeTpl());
+//        $('.search-key').on('keyup', $.proxy(this.findByName, this));
+//    },
 
     initialize: function () {
         var self = this;
@@ -38,7 +38,8 @@ var app = {
         this.employeeLiTpl = Handlebars.compile($("#employee-li-tpl").html())
         this.store = new MemoryStore(function () {
             self.showAlert('Store Initialized', 'Info');
-            self.renderHomeView();
+           // self.renderHomeView();
+            $('body').html(new HomeView(self.store).render().el);
         });
         $('.search-key').on('keyup', $.proxy(this.findByName, this));
     }
